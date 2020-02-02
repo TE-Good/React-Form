@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function Form({handleChange, handleClick}) {
+export default function Form({form, setForm}) {
+
+// BUTTON BEHAVIOUR
+useEffect(() => {
+  const button = document.querySelector('.btn')
+  !Object.values(form).includes("") && form.age >= 18 && form.age < 65 ? button.removeAttribute('disabled') : button.setAttribute('disabled', '') 
+})
+
+// HANDLES ALL INPUT FIELD CHANGES & STATE
+  function handleChange(e) {
+    setForm({...form, [e.target.name]: e.target.value })
+  }
+  // DISABLES INPUTS ON SUBMIT
+  function handleClick(e) {
+    const inputs = document.querySelectorAll('.disable-on-submit')
+    inputs.forEach(elem => elem.setAttribute('disabled', ''))
+    e.target.setAttribute('disabled', '')
+  }
 
   return (
     <div className="form form-group">
